@@ -1,5 +1,11 @@
 # Wordle Game
 
+## About
+
+This is a clone of the popular game [Wordle](https://www.nytimes.com/games/wordle/index.html). It is built with [Svelte](https://svelte.dev/) and [TypeScript](https://www.typescriptlang.org/).
+
+![Screen shot of a game](img/game.png)
+
 ## Quick start to play without building
 
 Install dependencies
@@ -14,7 +20,7 @@ Run the game
 npm run dev
 ```
 
-or 
+or
 
 ```bash
 npm run build

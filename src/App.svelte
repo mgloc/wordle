@@ -1,6 +1,6 @@
 <script lang="ts">
   import Row from "./lib/Row.svelte";
-  import {checkIfWordExists} from "./lib/words/search";
+  import {checkIfWordExists, getRandomWord} from "./lib/words/search";
   import {GameState} from "./lib/types";
 
   function handleKeyDown(event: KeyboardEvent) {
@@ -38,10 +38,10 @@
     current_guess = current_guess.slice(0, -1);
   }
 
-  async function handleEnter() {
+  function handleEnter() {
     if (
       current_guess.length !== word.length ||
-      !(await checkIfWordExists(current_guess.toLowerCase()))
+      !checkIfWordExists(current_guess.toLowerCase())
     ) {
       return; //raise error signal
     }
@@ -59,7 +59,7 @@
   }
 
   // Game logic
-  let word: string = "POMME";
+  let word: string = "HI"; // getRandomWord().toUpperCase();
   let current_guess: string = "";
   let active_row: number = 0;
   let max_row_id: number = 5;
@@ -68,7 +68,7 @@
   let guessed_letters: string = "";
 </script>
 
-<main>
+<main class="bg-slate-600">
   <div class="game">
     {#each guesses as guess, i}
       <Row

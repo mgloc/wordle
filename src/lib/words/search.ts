@@ -6,9 +6,21 @@ async function buildDictionarySet(): Promise<Set<string>> {
   return new Set(words);
 }
 
-// Usage example:
-export async function checkIfWordExists(word: string): Promise<boolean> {
-  const dictionarySet = await buildDictionarySet();
+const dictionarySet = await buildDictionarySet();
 
+// Usage example:
+export function checkIfWordExists(word: string): boolean {
   return dictionarySet.has(word);
+}
+
+export function getRandomWord(): string {
+  const dictIterator = dictionarySet.values();
+  const randomIndex: number = Math.floor(Math.random() * dictionarySet.size);
+  let i = 0;
+  let result = dictIterator.next();
+  while (i < randomIndex) {
+    result = dictIterator.next();
+    i++;
+  }
+  return result.value;
 }

@@ -10,7 +10,12 @@ const dictionarySet = await buildDictionarySet();
 
 // Usage example:
 export function checkIfWordExists(word: string): boolean {
-  return dictionarySet.has(word);
+  return (
+    dictionarySet.has(word) ||
+    (word.endsWith("s") && dictionarySet.has(word.slice(0, -1))) ||
+    (word.endsWith("es") && dictionarySet.has(word.slice(0, -2))) ||
+    (word.endsWith("e") && dictionarySet.has(word.slice(0, -1)))
+  );
 }
 
 export function getRandomWord(): string {

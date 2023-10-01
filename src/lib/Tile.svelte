@@ -7,28 +7,18 @@
     state === LetterState.UNSET
       ? "transparent"
       : state === LetterState.CORRECT
-      ? "#3eaa42"
+      ? "bg-green-500"
       : state === LetterState.INCORRECT
-      ? "#3a3a3c"
+      ? "bg-gray-500"
       : state === LetterState.MISPOSITIONNED
-      ? "#cd8729"
+      ? "bg-yellow-500"
       : "transparent";
 </script>
 
-<div class="tile" style="background-color: {color}">
-  <div class="tile-letter">{letter}</div>
+<div class="">
+  <div
+    class="border-2 border-slate-700 w-12 h-12 m-1 rounded-sm text-white text-2xl font-bold text-center items-center flex justify-center {color}"
+  >
+    {letter}
+  </div>
 </div>
-
-<style>
-  .tile {
-    width: 100px;
-    height: 100px;
-    border: 1px solid black;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  .tile-letter {
-    font-size: 50px;
-  }
-</style>

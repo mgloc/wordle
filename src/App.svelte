@@ -59,7 +59,7 @@
   }
 
   // Game logic
-  let word: string = "HI"; // getRandomWord().toUpperCase();
+  let word: string = getRandomWord().toUpperCase();
   let current_guess: string = "";
   let active_row: number = 0;
   let max_row_id: number = 5;
@@ -68,60 +68,50 @@
   let guessed_letters: string = "";
 </script>
 
-<main class="bg-slate-600">
-  <div class="game">
-    {#each guesses as guess, i}
-      <Row
-        {word}
-        {guess}
-        guessed={active_row > i ||
-          (active_row === i && game_state !== GameState.IN_PROGRESS)}
-      />
-    {/each}
-  </div>
-  <div class="game-state">
-    {#if game_state == GameState.IN_PROGRESS}
-      <p>Game in progress</p>
-    {:else if game_state === GameState.WIN}
-      <p>Game won</p>
-    {:else if game_state === GameState.LOST}
-      <p>Game lost</p>
-    {:else}
-      <p>Game error</p>
-    {/if}
-  </div>
+<main class="bg-slate-900 p-12 h-screen">
+  <div class="flex flex-col justify-center items-center gap-5 ps-25">
+    <!-- Grid --->
+    <div>
+      {#each guesses as guess, i}
+        <Row
+          {word}
+          {guess}
+          guessed={active_row > i ||
+            (active_row === i && game_state !== GameState.IN_PROGRESS)}
+        />
+      {/each}
+    </div>
 
-  <div class="keyboard">
-    {#each "ABCDEFGHIJKLMNOPQRSTUVWXYZ" as letter}
-      <div
-        class="keyboard-letter"
-        style="background-color: {guessed_letters.includes(letter)
-          ? word.includes(letter)
-            ? '#cc0000'
-            : 'transparent'
-          : '#3a3a3c'}"
-      >
-        {letter}
-      </div>
-    {/each}
+    <!-- GameState -->
+    <div class="text-white text-xl font-bold">
+      {#if game_state == GameState.IN_PROGRESS}
+        <p>Game in progress</p>
+      {:else if game_state === GameState.WIN}
+        <p>Game won</p>
+      {:else if game_state === GameState.LOST}
+        <p>Game lost, the word was : {word}</p>
+      {:else}
+        <p>Game error</p>
+      {/if}
+    </div>
+
+    <!-- Keyboard -->
+    <div class="flex flex-wrap justify-center w-4/6 lg:w-1/4">
+      {#each "ABCDEFGHIJKLMNOPQRSTUVWXYZ" as letter}
+        <div
+          class="border-2 border-slate-700 rounded-full w-8 h-8 flex justify-center items-center text-white text-xl font-bold m-0.5 {guessed_letters.includes(
+            letter
+          )
+            ? word.includes(letter)
+              ? 'bg-green-500'
+              : 'transparent'
+            : 'bg-slate-700'}"
+        >
+          {letter}
+        </div>
+      {/each}
+    </div>
   </div>
 </main>
 
 <svelte:window on:keydown={handleKeyDown} />
-
-<style>
-  .keyboard {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-  .keyboard-letter {
-    width: 50px;
-    height: 50px;
-    border: 1px solid black;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 5px;
-  }
-</style>

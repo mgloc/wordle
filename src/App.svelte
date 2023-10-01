@@ -37,6 +37,9 @@
   }
 
   function handleBackspace() {
+    if (current_guess === initial_guess) {
+      return;
+    }
     current_guess = current_guess.slice(0, -1);
   }
 
@@ -45,6 +48,8 @@
       current_guess.length !== word.length ||
       !(await checkIfWordExists(current_guess.toLowerCase()))
     ) {
+      current_guess = initial_guess;
+      renderGuess();
       return; //raise error signal
     }
     addGuessedLetters(current_guess);
@@ -57,13 +62,20 @@
       return;
     }
     active_row += 1;
-    current_guess = "";
+    current_guess = initial_guess;
+    renderGuess();
   }
 
   // Game logic
   let word: string = "";
-  onMount(async () => (word = (await getRandomWord()).toUpperCase()));
+  let initial_guess: string = "";
   let current_guess: string = "";
+  onMount(async () => {
+    word = (await getRandomWord()).toUpperCase();
+    initial_guess = word[0];
+    current_guess = initial_guess;
+    renderGuess();
+  });
   let active_row: number = 0;
   let max_row_id: number = 5;
   let guesses: string[] = Array.from({length: max_row_id + 1}, (_) => "");

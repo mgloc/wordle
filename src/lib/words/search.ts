@@ -6,10 +6,17 @@ async function buildDictionarySet(): Promise<Set<string>> {
   return new Set(words);
 }
 
-const dictionarySet = await buildDictionarySet();
+var dictionarySet: Set<string> | null = null;
+async function getDictionarySet(): Promise<Set<string>> {
+  if (dictionarySet === null) {
+    dictionarySet = await buildDictionarySet();
+  }
+  return dictionarySet;
+}
 
 // Usage example:
-export function checkIfWordExists(word: string): boolean {
+export async function checkIfWordExists(word: string): Promise<boolean> {
+  dictionarySet = await getDictionarySet();
   return (
     dictionarySet.has(word) ||
     (word.endsWith("s") && dictionarySet.has(word.slice(0, -1))) ||
@@ -18,7 +25,8 @@ export function checkIfWordExists(word: string): boolean {
   );
 }
 
-export function getRandomWord(): string {
+export async function getRandomWord(): Promise<string> {
+  dictionarySet = await getDictionarySet();
   const dictIterator = dictionarySet.values();
   const randomIndex: number = Math.floor(Math.random() * dictionarySet.size);
   let i = 0;

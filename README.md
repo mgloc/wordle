@@ -5,13 +5,18 @@
 Install dependencies
 
 ```bash
-$ bun install
+$ npm install
 ```
-
-> How to install bun ? [bun](https://bun.sh/)
 
 Run the game
 
 ```bash
-$ bun run dev
+$ npm run dev
+```
+
+or 
+
+```bash
+$ npm run build
+$ serve dist
 ```

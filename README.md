@@ -5,18 +5,18 @@
 Install dependencies
 
 ```bash
-$ npm install
+npm install
 ```
 
 Run the game
 
 ```bash
-$ npm run dev
+npm run dev
 ```
 
 or 
 
 ```bash
-$ npm run build
-$ serve dist
+npm run build
+serve dist
 ```
